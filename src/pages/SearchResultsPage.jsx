@@ -68,8 +68,8 @@ export default function SearchResultsPage() {
 
       <main className="flex flex-1 flex-col bg-neutral-50 lg:flex-row">
         {/* Filters sidebar */}
-        <aside className="flex w-full flex-col gap-8 border-b border-neutral-200 bg-white p-6 sm:p-10 lg:w-[350px] lg:border-b-0 lg:border-r">
-          <h2 className="text-2xl font-bold text-black">Filtres avancés</h2>
+        <aside className="flex w-full flex-col gap-6 border-b border-neutral-200 bg-white p-6 sm:p-8 lg:w-[320px] lg:border-b-0 lg:border-r">
+          <h2 className="text-xl font-bold text-black">Filtres avancés</h2>
 
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
@@ -137,11 +137,10 @@ export default function SearchResultsPage() {
                     onClick={() =>
                       setMinBedrooms((current) => (current === n ? null : n))
                     }
-                    className={`flex-1 rounded-lg border px-2 py-2 text-sm font-medium transition-colors ${
-                      minBedrooms === n
+                    className={`flex-1 rounded-lg border px-2 py-2 text-sm font-medium transition-colors ${minBedrooms === n
                         ? "border-brand-blue bg-brand-mint font-bold text-brand-blue"
                         : "border-neutral-300 bg-white text-black hover:border-neutral-400"
-                    }`}
+                      }`}
                   >
                     {n}+
                   </button>
@@ -181,7 +180,7 @@ export default function SearchResultsPage() {
         </aside>
 
         {/* Results */}
-        <section className="flex flex-1 flex-col gap-8 p-6 sm:p-10 lg:p-[60px]">
+        <section className="flex flex-1 flex-col gap-6 p-6 sm:p-8 lg:p-10">
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="flex items-center gap-3">
               <h1 className="text-2xl font-bold text-black">
@@ -215,7 +214,7 @@ export default function SearchResultsPage() {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {filtered.map((listing) => (
                 <PropertyCard key={listing.id} listing={listing} />
               ))}

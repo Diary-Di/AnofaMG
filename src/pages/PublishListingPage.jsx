@@ -75,17 +75,17 @@ export default function PublishListingPage() {
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
 
-      <section className="flex flex-col items-center gap-4 bg-brand-mint px-6 py-16 text-center sm:px-10">
-        <h1 className="text-4xl font-bold text-black sm:text-5xl">
+      <section className="flex flex-col items-center gap-3 bg-brand-mint px-6 py-12 text-center sm:px-10">
+        <h1 className="text-3xl font-bold text-black sm:text-4xl">
           Publiez votre annonce
         </h1>
-        <p className="max-w-[730px] text-lg text-neutral-700 sm:text-xl">
+        <p className="max-w-[680px] text-base text-neutral-700 sm:text-lg">
           Vendez ou louez votre bien immobilier rapidement en touchant des
           milliers de locataires et acheteurs potentiels.
         </p>
       </section>
 
-      <main className="flex flex-col items-center px-4 py-16 sm:px-6">
+      <main className="flex flex-col items-center px-4 py-12 sm:px-6">
         {submitted ? (
           <div className="flex w-full max-w-[700px] flex-col items-center gap-3 rounded-[20px] border border-neutral-100 bg-white p-12 text-center shadow-sm">
             <h2 className="text-2xl font-bold text-black">
@@ -99,10 +99,10 @@ export default function PublishListingPage() {
         ) : (
           <form
             onSubmit={handleSubmit}
-            className="flex w-full max-w-[1000px] flex-col gap-8"
+            className="flex w-full max-w-[960px] flex-col gap-6"
           >
             {/* Step 1 */}
-            <div className="flex flex-col gap-8 rounded-[20px] border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
+            <div className="flex flex-col gap-6 rounded-[16px] border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
               <div className="flex items-center gap-3">
                 <StepBadge number={1} />
                 <h2 className="text-2xl font-bold text-black">
@@ -162,7 +162,7 @@ export default function PublishListingPage() {
             </div>
 
             {/* Step 2 */}
-            <div className="flex flex-col gap-8 rounded-[20px] border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
+            <div className="flex flex-col gap-6 rounded-[16px] border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
               <div className="flex items-center gap-3">
                 <StepBadge number={2} />
                 <h2 className="text-2xl font-bold text-black">
@@ -211,7 +211,7 @@ export default function PublishListingPage() {
             </div>
 
             {/* Step 3 */}
-            <div className="flex flex-col gap-8 rounded-[20px] border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
+            <div className="flex flex-col gap-6 rounded-[16px] border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
               <div className="flex items-center gap-3">
                 <StepBadge number={3} />
                 <h2 className="text-2xl font-bold text-black">
@@ -281,7 +281,7 @@ export default function PublishListingPage() {
             </div>
 
             {/* Step 4 */}
-            <div className="flex flex-col gap-6 rounded-[20px] border border-neutral-200 bg-white p-6 shadow-sm sm:p-10">
+            <div className="flex flex-col gap-5 rounded-[16px] border border-neutral-200 bg-white p-5 shadow-sm sm:p-8">
               <div className="flex items-center gap-3">
                 <StepBadge number={4} />
                 <h2 className="text-2xl font-bold text-black">

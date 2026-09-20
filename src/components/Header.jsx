@@ -6,7 +6,6 @@ const NAV_LINKS = [
   { label: "Louer", to: "/recherche" },
   { label: "Publier une annonce", to: "/publier" },
   { label: "A propos", to: "/#a-propos" },
-  { label: "Contact", to: "/#contact" },
 ];
 
 export default function Header() {
@@ -14,26 +13,25 @@ export default function Header() {
 
   return (
     <header className="bg-brand-mint">
-      <div className="flex items-center justify-between px-6 py-4 sm:px-10 lg:px-[60px]">
+      <div className="flex items-center justify-between px-6 py-3 sm:px-10 lg:px-[60px]">
         <Link to="/" className="shrink-0" aria-label="anofamig — accueil">
-          <Logo className="h-10 w-auto sm:h-[52px]" />
+          <Logo className="h-9 w-auto sm:h-11" />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex lg:gap-10">
+        <nav className="hidden items-center gap-7 md:flex lg:gap-9">
           {NAV_LINKS.map((link) => {
             const isActive =
               link.to === "/"
                 ? location.pathname === "/"
                 : location.pathname.startsWith(link.to.split("#")[0]) &&
-                  link.to !== "/#a-propos" &&
-                  link.to !== "/#contact";
+                link.to !== "/#a-propos" &&
+                link.to !== "/#contact";
             return (
               <Link
                 key={link.label}
                 to={link.to}
-                className={`text-[17px] transition-colors hover:text-brand-blue ${
-                  isActive ? "font-semibold text-black" : "text-black"
-                }`}
+                className={`text-[15px] transition-colors hover:text-brand-blue ${isActive ? "font-semibold text-black" : "text-black"
+                  }`}
               >
                 {link.label}
               </Link>
@@ -42,10 +40,10 @@ export default function Header() {
         </nav>
 
         <Link
-          to="/publier"
+          to="/#contact"
           className="hidden rounded-[10px] bg-black px-5 py-2.5 text-sm font-semibold text-brand-mint transition-colors hover:bg-neutral-800 md:inline-block"
         >
-          Publier une annonce
+          Contactez-nous
         </Link>
       </div>
     </header>

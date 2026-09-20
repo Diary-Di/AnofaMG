@@ -31,7 +31,7 @@ export default function HomePage() {
       <Header />
 
       {/* Hero */}
-      <section className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-4 py-24 sm:min-h-[600px]">
+      <section className="relative flex min-h-[440px] items-center justify-center overflow-hidden px-4 py-16 sm:min-h-[500px] sm:py-20">
         <img
           src={heroVilla}
           alt=""
@@ -40,18 +40,18 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black/30" />
 
-        <div className="relative z-10 flex w-full max-w-[1000px] flex-col items-center gap-6 text-center">
-          <h1 className="text-4xl font-bold leading-tight text-white drop-shadow-sm sm:text-5xl lg:text-[56px] lg:leading-[70px]">
+        <div className="relative z-10 flex w-full max-w-[920px] flex-col items-center gap-5 text-center">
+          <h1 className="text-3xl font-bold leading-tight text-white drop-shadow-sm sm:text-5xl lg:text-[50px] lg:leading-[60px]">
             Trouvez la maison de vos rêves
           </h1>
-          <p className="max-w-[800px] text-lg text-white/90 sm:text-xl lg:text-[22px]">
+          <p className="max-w-[680px] text-base text-white/90 sm:text-lg lg:text-xl">
             Explorez les meilleures annonces immobilières adaptées à votre
             style de vie et à votre budget.
           </p>
 
           <form
             onSubmit={handleSearch}
-            className="mt-4 flex w-full flex-col gap-4 rounded-[15px] bg-white p-6 shadow-2xl sm:flex-row sm:items-center"
+            className="mt-3 flex w-full flex-col gap-3 rounded-[12px] bg-white p-4 shadow-2xl sm:flex-row sm:items-center"
           >
             <div className="flex flex-1 flex-col gap-1 text-left">
               <label htmlFor="location" className="px-2 text-center text-sm text-neutral-500 sm:text-left">
@@ -99,7 +99,7 @@ export default function HomePage() {
 
             <button
               type="submit"
-              className="rounded-[10px] bg-brand-blue px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-sky-600"
+              className="rounded-[8px] bg-brand-blue px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-sky-600"
             >
               Rechercher
             </button>
@@ -108,32 +108,32 @@ export default function HomePage() {
       </section>
 
       {/* Publier une annonce banner */}
-      <section className="flex flex-col items-start justify-between gap-6 bg-brand-mint px-6 py-12 sm:px-10 lg:flex-row lg:items-center lg:px-20">
-        <div className="flex max-w-[600px] flex-col gap-4">
-          <h2 className="text-3xl font-bold text-black sm:text-[32px]">
+      <section className="flex flex-col items-start justify-between gap-5 bg-brand-mint px-6 py-10 sm:px-10 lg:flex-row lg:items-center lg:px-20">
+        <div className="flex max-w-[600px] flex-col gap-3">
+          <h2 className="text-2xl font-bold text-black sm:text-3xl">
             Vous avez un bien à louer ?
           </h2>
-          <p className="text-lg text-neutral-700">
+          <p className="text-base text-neutral-700">
             Publiez votre annonce gratuitement sur anofamig et touchez des
             milliers de locataires potentiels dès aujourd'hui.
           </p>
         </div>
         <a
           href="/publier"
-          className="shrink-0 rounded-[10px] bg-black px-10 py-4 text-lg font-semibold text-brand-mint transition-colors hover:bg-neutral-800"
+          className="shrink-0 rounded-[8px] bg-black px-7 py-3 text-base font-semibold text-brand-mint transition-colors hover:bg-neutral-800"
         >
           Publier une annonce
         </a>
       </section>
 
       {/* Featured properties */}
-      <section className="flex flex-col gap-10 px-6 py-16 sm:px-10 lg:px-20">
+      <section className="flex flex-col gap-8 px-6 py-12 sm:px-10 lg:px-20">
         <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
           <div className="flex flex-col gap-2">
             <p className="text-sm font-semibold uppercase tracking-wide text-black/60">
               Nos recommandations
             </p>
-            <h2 className="text-3xl font-bold text-black sm:text-4xl">
+            <h2 className="text-2xl font-bold text-black sm:text-3xl">
               Propriétés en vedette
             </h2>
           </div>
@@ -145,7 +145,7 @@ export default function HomePage() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featuredListings.map((listing) => (
             <PropertyCard
               key={listing.id}

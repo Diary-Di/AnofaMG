@@ -5,8 +5,8 @@ export default function PropertyCard({ listing, onViewDetails }) {
     listing;
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-[20px] border border-neutral-100 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
-      <div className="h-[220px] w-full overflow-hidden sm:h-[240px]">
+    <div className="flex flex-col overflow-hidden rounded-[14px] border border-neutral-100 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.05)]">
+      <div className="h-[190px] w-full overflow-hidden sm:h-[210px]">
         <img
           src={image}
           alt={title}
@@ -14,15 +14,15 @@ export default function PropertyCard({ listing, onViewDetails }) {
           loading="lazy"
         />
       </div>
-      <div className="flex flex-1 flex-col gap-4 p-6">
+      <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-center justify-between gap-3">
-          <span className="rounded-full bg-brand-mint px-3 py-1 text-sm font-medium text-black">
+          <span className="rounded-full bg-brand-mint px-2.5 py-1 text-xs font-medium text-black">
             {type}
           </span>
-          <span className="text-lg font-bold text-black">{price}</span>
+          <span className="text-base font-bold text-black">{price}</span>
         </div>
 
-        <h3 className="text-[22px] font-semibold leading-snug text-black">
+        <h3 className="text-xl font-semibold leading-snug text-black">
           {title}
         </h3>
 
@@ -32,7 +32,7 @@ export default function PropertyCard({ listing, onViewDetails }) {
         </div>
 
         <div className="flex items-center justify-between border-t border-neutral-100 pt-3">
-          <div className="flex items-center gap-4 text-[15px] text-neutral-600">
+          <div className="flex items-center gap-3 text-sm text-neutral-600">
             <span className="flex items-center gap-1.5">
               <BedDouble size={16} /> {bedrooms} Ch
             </span>
@@ -46,7 +46,7 @@ export default function PropertyCard({ listing, onViewDetails }) {
           <button
             type="button"
             onClick={() => onViewDetails?.(listing)}
-            className="rounded-[10px] bg-brand-blue px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-sky-600"
+            className="rounded-[8px] bg-brand-blue px-3 py-2 text-xs font-bold text-white transition-colors hover:bg-sky-600"
           >
             Voir détails
           </button>

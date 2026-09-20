@@ -27,10 +27,10 @@ function SocialIcon({ name, ...props }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-6 py-16 text-white sm:px-10 lg:px-20 lg:py-20">
-      <div className="mx-auto flex max-w-7xl flex-col gap-12">
-        <div className="flex flex-col justify-between gap-12 lg:flex-row">
-          <div className="flex max-w-[300px] flex-col gap-6">
+    <footer className="bg-black px-6 py-12 text-white sm:px-10 lg:px-20 lg:py-16">
+      <div className="mx-auto flex max-w-7xl flex-col gap-10">
+        <div className="flex flex-col justify-between gap-10 lg:flex-row">
+          <div className="flex max-w-[300px] flex-col gap-5">
             <div className="w-fit rounded-[5px] bg-white p-2">
               <Logo className="h-[34px] w-auto" />
             </div>
