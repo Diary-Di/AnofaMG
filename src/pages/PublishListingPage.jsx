@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, BedDouble, Bath, UploadCloud, X } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { createAnnonce, getVilles } from "../api/annonces";
 
 const PROPERTY_TYPES = ["Appartement", "Maison", "Studio", "Loft", "Duplex"];
-const CONTRACT_TYPES = ["Location", "Vente"];
 
 function StepBadge({ number }) {
   return (
@@ -28,6 +28,16 @@ function Field({ label, children }) {
 
 const inputClasses =
   "w-full rounded-[10px] border border-neutral-300 bg-white px-5 py-4 text-base text-black placeholder:text-neutral-400 focus:border-brand-blue focus:outline-none focus:ring-1 focus:ring-brand-blue";
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error(`Impossible de lire ${file.name}`));
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function PublishListingPage() {
   const navigate = useNavigate();
@@ -35,40 +45,79 @@ export default function PublishListingPage() {
   const [form, setForm] = useState({
     title: "",
     propertyType: PROPERTY_TYPES[0],
-    contractType: CONTRACT_TYPES[0],
-    description: "",
     address: "",
     city: "",
-    district: "",
+    postalCode: "",
     price: "",
-    surface: "",
     bedrooms: "",
     bathrooms: "",
   });
   const [photos, setPhotos] = useState([]);
+  const [error, setError] = useState("");
+  const [villes, setVilles] = useState([]);
+  const [villesLoading, setVillesLoading] = useState(true);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    getVilles(controller.signal)
+      .then(setVilles)
+      .catch((requestError) => {
+        if (requestError.name !== "AbortError") {
+          setError(`Impossible de charger les villes : ${requestError.message}`);
+        }
+      })
+      .finally(() => setVillesLoading(false));
+
+    return () => controller.abort();
+  }, []);
 
   function update(field) {
     return (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
   }
 
-  function handleFiles(e) {
-    const files = Array.from(e.target.files || []).slice(0, 6 - photos.length);
-    const withPreviews = files.map((file) => ({
-      file,
-      url: URL.createObjectURL(file),
-    }));
-    setPhotos((p) => [...p, ...withPreviews]);
+  async function handleFiles(e) {
+    const files = Array.from(e.target.files || [])
+      .filter((file) => file.type === "image/jpeg" || file.type === "image/png")
+      .filter((file) => file.size <= MAX_IMAGE_SIZE)
+      .slice(0, 6 - photos.length);
+
+    if (files.length === 0) {
+      setError("Sélectionnez une image PNG ou JPG de 10 Mo maximum.");
+      return;
+    }
+
+    try {
+      const withPreviews = await Promise.all(
+        files.map(async (file) => ({
+          file,
+          url: await readFileAsDataUrl(file),
+        })),
+      );
+      setPhotos((p) => [...p, ...withPreviews]);
+      setError("");
+    } catch (fileError) {
+      setError(fileError.message);
+    }
+
+    e.target.value = "";
   }
 
   function removePhoto(index) {
     setPhotos((p) => p.filter((_, i) => i !== index));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    setTimeout(() => navigate("/recherche"), 1400);
+    setError("");
+    try {
+      await createAnnonce(form, photos.map((photo) => photo.url));
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(() => navigate("/recherche"), 1400);
+    } catch (requestError) {
+      setError(requestError.message);
+    }
   }
 
   return (
@@ -135,29 +184,6 @@ export default function PublishListingPage() {
                   </select>
                 </Field>
 
-                <Field label="Type de contrat">
-                  <select
-                    className={inputClasses}
-                    value={form.contractType}
-                    onChange={update("contractType")}
-                  >
-                    {CONTRACT_TYPES.map((t) => (
-                      <option key={t}>{t}</option>
-                    ))}
-                  </select>
-                </Field>
-
-                <div className="sm:col-span-2">
-                  <Field label="Description">
-                    <textarea
-                      rows={5}
-                      className={`${inputClasses} resize-none`}
-                      placeholder="Décrivez votre bien en détail..."
-                      value={form.description}
-                      onChange={update("description")}
-                    />
-                  </Field>
-                </div>
               </div>
             </div>
 
@@ -190,23 +216,33 @@ export default function PublishListingPage() {
                 </div>
 
                 <Field label="Ville">
-                  <input
+                  <select
                     required
+                    disabled={villesLoading}
                     className={inputClasses}
-                    placeholder="Ex: Paris"
-                    value={form.city}
-                    onChange={update("city")}
-                  />
+                    value={form.postalCode}
+                    onChange={(e) => {
+                      const ville = villes.find(
+                        (item) => item.boitePostal === e.target.value,
+                      );
+                      setForm((current) => ({
+                        ...current,
+                        postalCode: ville?.boitePostal || "",
+                        city: ville?.designation || "",
+                      }));
+                    }}
+                  >
+                    <option value="">
+                      {villesLoading ? "Chargement des villes..." : "Sélectionnez une ville"}
+                    </option>
+                    {villes.map((ville) => (
+                      <option key={ville.boitePostal} value={ville.boitePostal}>
+                        {ville.designation} ({ville.boitePostal})
+                      </option>
+                    ))}
+                  </select>
                 </Field>
 
-                <Field label="Quartier">
-                  <input
-                    className={inputClasses}
-                    placeholder="Ex: 8ème Arrondissement"
-                    value={form.district}
-                    onChange={update("district")}
-                  />
-                </Field>
               </div>
             </div>
 
@@ -229,18 +265,6 @@ export default function PublishListingPage() {
                     placeholder="0.00"
                     value={form.price}
                     onChange={update("price")}
-                  />
-                </Field>
-
-                <Field label="Surface (m²)">
-                  <input
-                    required
-                    type="number"
-                    min="0"
-                    className={inputClasses}
-                    placeholder="0"
-                    value={form.surface}
-                    onChange={update("surface")}
                   />
                 </Field>
 
@@ -341,6 +365,7 @@ export default function PublishListingPage() {
             </div>
 
             <div className="flex justify-end pt-2">
+              {error && <p className="mr-4 self-center text-sm text-red-700">Échec de la publication : {error}</p>}
               <button
                 type="submit"
                 className="w-full rounded-[10px] bg-brand-blue px-4 py-4 text-base font-bold text-white transition-colors hover:bg-sky-600 sm:w-[240px]"

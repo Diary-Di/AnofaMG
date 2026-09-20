@@ -1,7 +1,7 @@
-import { MapPin, BedDouble, Bath, Ruler } from "lucide-react";
+import { MapPin, BedDouble, Bath } from "lucide-react";
 
 export default function PropertyCard({ listing, onViewDetails }) {
-  const { image, type, price, title, location, bedrooms, bathrooms, area } =
+  const { image, type, price, title, location, bedrooms, bathrooms } =
     listing;
 
   return (
@@ -38,9 +38,6 @@ export default function PropertyCard({ listing, onViewDetails }) {
             </span>
             <span className="flex items-center gap-1.5">
               <Bath size={15} /> {bathrooms} Sdb
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Ruler size={15} /> {area}
             </span>
           </div>
           <button

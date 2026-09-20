@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PropertyCard from "../components/PropertyCard";
-import { featuredListings } from "../data/listings";
+import { getAnnonces } from "../api/annonces";
 import heroVilla from "../assets/images/hero-villa.svg";
 
 export default function HomePage() {
@@ -12,6 +12,22 @@ export default function HomePage() {
   const [location, setLocation] = useState("");
   const [minBudget, setMinBudget] = useState("");
   const [maxBudget, setMaxBudget] = useState("");
+  const [featuredListings, setFeaturedListings] = useState([]);
+  const [loadingListings, setLoadingListings] = useState(true);
+  const [listingsError, setListingsError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    getAnnonces(controller.signal)
+      .then((listings) => setFeaturedListings(listings.slice(0, 3)))
+      .catch((requestError) => {
+        if (requestError.name !== "AbortError") setListingsError(requestError.message);
+      })
+      .finally(() => setLoadingListings(false));
+
+    return () => controller.abort();
+  }, []);
 
   function handleSearch(e) {
     e.preventDefault();
@@ -145,15 +161,21 @@ export default function HomePage() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredListings.map((listing) => (
-            <PropertyCard
-              key={listing.id}
-              listing={listing}
-              onViewDetails={handleViewDetails}
-            />
-          ))}
-        </div>
+        {loadingListings ? (
+          <p className="text-neutral-500">Chargement des annonces...</p>
+        ) : listingsError ? (
+          <p className="text-red-700">Impossible de charger les annonces : {listingsError}</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredListings.map((listing) => (
+              <PropertyCard
+                key={listing.id}
+                listing={listing}
+                onViewDetails={handleViewDetails}
+              />
+            ))}
+          </div>
+        )}
       </section>
 
       <Footer />
