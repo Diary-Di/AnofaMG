@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Search } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -134,12 +134,12 @@ export default function HomePage() {
             milliers de locataires potentiels dès aujourd'hui.
           </p>
         </div>
-        <a
-          href="/publier"
+        <Link
+          to="/publier"
           className="shrink-0 rounded-[8px] bg-black px-7 py-3 text-base font-semibold text-brand-mint transition-colors hover:bg-neutral-800"
         >
           Publier une annonce
-        </a>
+        </Link>
       </section>
 
       {/* Featured properties */}
@@ -153,12 +153,12 @@ export default function HomePage() {
               Propriétés en vedette
             </h2>
           </div>
-          <a
-            href="/recherche"
+          <Link
+            to="/recherche"
             className="border-b-2 border-black pb-1 text-base font-semibold text-black"
           >
             Voir tout
-          </a>
+          </Link>
         </div>
 
         {loadingListings ? (
