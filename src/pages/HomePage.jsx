@@ -42,6 +42,10 @@ export default function HomePage() {
     navigate(`/recherche?lieu=${encodeURIComponent(listing.location)}`);
   }
 
+  function handleViewAll() {
+    navigate("/recherche");
+  }
+
   return (
     <div className="flex min-h-screen flex-col bg-white">
       <Header />
@@ -153,12 +157,13 @@ export default function HomePage() {
               Propriétés en vedette
             </h2>
           </div>
-          <Link
-            to="/recherche"
+          <button
+            type="button"
+            onClick={handleViewAll}
             className="border-b-2 border-black pb-1 text-base font-semibold text-black"
           >
             Voir tout
-          </Link>
+          </button>
         </div>
 
         {loadingListings ? (
