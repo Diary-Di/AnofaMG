@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Search } from "lucide-react";
+import { LoaderCircle, Search } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PropertyCard from "../components/PropertyCard";
@@ -9,6 +9,7 @@ import { getAnnonces } from "../api/annonces";
 const PROPERTY_TYPES = ["Tous les types", "Appartement", "Maison", "Studio", "Loft", "Duplex"];
 const BEDROOM_OPTIONS = [1, 2, 3, 4];
 const SORT_OPTIONS = ["Ordre par défaut", "Prix croissant", "Prix décroissant"];
+const MIN_LOADING_TIME = 900;
 
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
@@ -30,13 +31,25 @@ export default function SearchResultsPage() {
 
   useEffect(() => {
     const controller = new AbortController();
+    const startedAt = Date.now();
+
+    function finishLoading() {
+      const remainingTime = Math.max(
+        0,
+        MIN_LOADING_TIME - (Date.now() - startedAt),
+      );
+
+      window.setTimeout(() => {
+        if (!controller.signal.aborted) setLoading(false);
+      }, remainingTime);
+    }
 
     getAnnonces(controller.signal)
       .then(setAllListings)
       .catch((requestError) => {
         if (requestError.name !== "AbortError") setError(requestError.message);
       })
-      .finally(() => setLoading(false));
+      .finally(finishLoading);
 
     return () => controller.abort();
   }, []);
@@ -223,18 +236,24 @@ export default function SearchResultsPage() {
           </div>
 
           {loading ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2" aria-label="Chargement des annonces">
-              {[1, 2, 3, 4].map((placeholder) => (
-                <div key={placeholder} className="animate-pulse overflow-hidden rounded-[14px] border border-neutral-100 bg-white">
-                  <div className="h-[190px] bg-neutral-200 sm:h-[210px]" />
-                  <div className="space-y-4 p-5">
-                    <div className="h-4 w-1/3 rounded bg-neutral-200" />
-                    <div className="h-6 w-3/4 rounded bg-neutral-200" />
-                    <div className="h-4 w-full rounded bg-neutral-100" />
-                    <div className="h-8 w-full rounded bg-neutral-100" />
+            <div className="flex flex-col gap-6" aria-label="Chargement des annonces">
+              <div className="flex items-center gap-3 text-sm text-neutral-500">
+                <LoaderCircle size={18} className="animate-spin text-brand-blue" />
+                <span>Chargement des annonces...</span>
+              </div>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {[1, 2, 3, 4].map((placeholder) => (
+                  <div key={placeholder} className="animate-pulse overflow-hidden rounded-[14px] border border-neutral-100 bg-white">
+                    <div className="h-[190px] bg-neutral-200 sm:h-[210px]" />
+                    <div className="space-y-4 p-5">
+                      <div className="h-4 w-1/3 rounded bg-neutral-200" />
+                      <div className="h-6 w-3/4 rounded bg-neutral-200" />
+                      <div className="h-4 w-full rounded bg-neutral-100" />
+                      <div className="h-8 w-full rounded bg-neutral-100" />
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           ) : error ? (
             <div className="rounded-[20px] border border-red-200 bg-red-50 py-12 text-center text-red-700">

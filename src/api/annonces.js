@@ -6,13 +6,14 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || "https://my-asus.tail1da18b
 const fallbackImages = [apartmentLiving, houseGarden, loftIndustrial];
 
 async function request(path, options) {
+    const headers = { ...options?.headers };
+    if (options?.body) {
+        headers["Content-Type"] = "application/json";
+    }
+
     const response = await fetch(`${API_BASE_URL}${path}`, {
         ...options,
-        headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true",
-            ...options?.headers,
-        },
+        headers,
     });
 
     if (!response.ok) {
