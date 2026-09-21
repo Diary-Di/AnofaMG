@@ -2,13 +2,17 @@ import apartmentLiving from "../assets/images/apartment-living.svg";
 import houseGarden from "../assets/images/house-garden.svg";
 import loftIndustrial from "../assets/images/loft-industrial.svg";
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8080/api";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://my-asus.tail1da18b.ts.net/api";
 const fallbackImages = [apartmentLiving, houseGarden, loftIndustrial];
 
 async function request(path, options) {
     const response = await fetch(`${API_BASE_URL}${path}`, {
-        headers: { "Content-Type": "application/json" },
         ...options,
+        headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+            ...options?.headers,
+        },
     });
 
     if (!response.ok) {
