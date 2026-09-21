@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, BedDouble, Bath, UploadCloud, X } from "lucide-react";
+import { Search, Phone, BedDouble, Bath, UploadCloud, X } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { createAnnonce, getVilles } from "../api/annonces";
@@ -48,6 +48,7 @@ export default function PublishListingPage() {
     address: "",
     city: "",
     postalCode: "",
+    contact: "",
     price: "",
     bedrooms: "",
     bathrooms: "",
@@ -241,6 +242,24 @@ export default function PublishListingPage() {
                       </option>
                     ))}
                   </select>
+                </Field>
+
+                <Field label="Téléphone de contact">
+                  <div className="relative">
+                    <Phone
+                      size={20}
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400"
+                    />
+                    <input
+                      required
+                      type="tel"
+                      maxLength={13}
+                      className={`${inputClasses} pl-11`}
+                      placeholder="Ex. +261 34 00 000 00"
+                      value={form.contact}
+                      onChange={update("contact")}
+                    />
+                  </div>
                 </Field>
 
               </div>
