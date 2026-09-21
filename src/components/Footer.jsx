@@ -27,14 +27,14 @@ function SocialIcon({ name, ...props }) {
 
 export default function Footer() {
   return (
-    <footer className="bg-black px-6 py-12 text-white sm:px-10 lg:px-20 lg:py-16">
+    <footer className="bg-brand-mint px-6 py-12 text-black sm:px-10 lg:px-20 lg:py-16">
       <div className="mx-auto flex max-w-7xl flex-col gap-10">
         <div className="flex flex-col justify-between gap-10 lg:flex-row">
           <div className="flex max-w-[300px] flex-col gap-5">
-            <div className="w-fit rounded-[5px] bg-white p-2">
+            <div className="w-fit rounded-[5px] bg-transparent p-0">
               <Logo className="h-[34px] w-auto" />
             </div>
-            <p className="text-[15px] leading-relaxed text-neutral-400">
+            <p className="text-[15px] leading-relaxed text-neutral-700">
               Simplifiez votre recherche immobilière avec anofamg. La
               plateforme de confiance pour louer et publier des annonces.
             </p>
@@ -43,31 +43,31 @@ export default function Footer() {
           <div className="flex flex-wrap gap-12 lg:gap-24">
             <div className="flex flex-col gap-4">
               <h4 className="text-lg font-bold">Navigation</h4>
-              <Link to="/" className="text-[15px] text-neutral-400 hover:text-white">Accueil</Link>
-              <Link to="/recherche" className="text-[15px] text-neutral-400 hover:text-white">Louer</Link>
-              <Link to="/publier" className="text-[15px] text-neutral-400 hover:text-white">Publier</Link>
-              <a href="#a-propos" className="text-[15px] text-neutral-400 hover:text-white">À Propos</a>
+              <Link to="/" className="text-[15px] text-neutral-700 hover:text-brand-blue">Accueil</Link>
+              <Link to="/recherche" className="text-[15px] text-neutral-700 hover:text-brand-blue">Louer</Link>
+              <Link to="/publier" className="text-[15px] text-neutral-700 hover:text-brand-blue">Publier</Link>
+              <a href="#a-propos" className="text-[15px] text-neutral-700 hover:text-brand-blue">À Propos</a>
             </div>
 
             <div className="flex flex-col gap-4">
               <h4 className="text-lg font-bold">Support</h4>
-              <a href="#faq" className="text-[15px] text-neutral-400 hover:text-white">FAQ</a>
-              <a href="#contact" className="text-[15px] text-neutral-400 hover:text-white">Contact</a>
-              <a href="#conditions" className="text-[15px] text-neutral-400 hover:text-white">Conditions d'utilisation</a>
+              <a href="#faq" className="text-[15px] text-neutral-700 hover:text-brand-blue">FAQ</a>
+              <a href="#contact" className="text-[15px] text-neutral-700 hover:text-brand-blue">Contact</a>
+              <a href="#conditions" className="text-[15px] text-neutral-700 hover:text-brand-blue">Conditions d'utilisation</a>
             </div>
 
             <div className="flex flex-col gap-4">
               <h4 className="text-lg font-bold">Contact</h4>
-              <a href="mailto:info@anofamg.com" className="text-[15px] text-neutral-400 hover:text-white">info@anofamg.com</a>
-              <a href="tel:+33123456789" className="text-[15px] text-neutral-400 hover:text-white">+33 1 23 45 67 89</a>
+              <a href="mailto:info@anofamg.com" className="text-[15px] text-neutral-700 hover:text-brand-blue">info@anofamg.com</a>
+              <a href="tel:+33123456789" className="text-[15px] text-neutral-700 hover:text-brand-blue">+33 1 23 45 67 89</a>
               <div className="flex gap-4 pt-1">
-                <a href="#" aria-label="Facebook" className="text-neutral-400 hover:text-white">
+                <a href="#" aria-label="Facebook" className="text-neutral-700 hover:text-brand-blue">
                   <SocialIcon name="facebook" />
                 </a>
-                <a href="#" aria-label="Instagram" className="text-neutral-400 hover:text-white">
+                <a href="#" aria-label="Instagram" className="text-neutral-700 hover:text-brand-blue">
                   <SocialIcon name="instagram" />
                 </a>
-                <a href="#" aria-label="Twitter" className="text-neutral-400 hover:text-white">
+                <a href="#" aria-label="Twitter" className="text-neutral-700 hover:text-brand-blue">
                   <SocialIcon name="twitter" />
                 </a>
               </div>
@@ -75,13 +75,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row sm:items-center">
-          <p className="text-sm text-neutral-500">
+        <div className="flex flex-col items-start justify-between gap-4 border-t border-black/10 pt-8 sm:flex-row sm:items-center">
+          <p className="text-sm text-neutral-600">
             © {new Date().getFullYear()} anofamg. Tous droits réservés.
           </p>
           <div className="flex gap-6">
-            <a href="#" className="text-sm text-neutral-500 hover:text-white">Confidentialité</a>
-            <a href="#" className="text-sm text-neutral-500 hover:text-white">Cookies</a>
+            <a href="#" className="text-sm text-neutral-600 hover:text-brand-blue">Confidentialité</a>
+            <a href="#" className="text-sm text-neutral-600 hover:text-brand-blue">Cookies</a>
           </div>
         </div>
       </div>
