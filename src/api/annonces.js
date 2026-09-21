@@ -73,6 +73,7 @@ export async function createAnnonce(form, images = []) {
             },
             adresse: form.address,
             contact: form.contact,
+            email: form.email,
             prix: Number(form.price),
             chambre: Number(form.bedrooms || 0),
             salleDeBain: Number(form.bathrooms || 0),

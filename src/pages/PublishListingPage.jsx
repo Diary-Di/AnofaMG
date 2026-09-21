@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Phone, BedDouble, Bath, UploadCloud, X } from "lucide-react";
+import { Search, Phone, Mail, BedDouble, Bath, UploadCloud, X } from "lucide-react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { createAnnonce, getVilles } from "../api/annonces";
@@ -49,6 +49,7 @@ export default function PublishListingPage() {
     city: "",
     postalCode: "",
     contact: "",
+    email: "",
     price: "",
     bedrooms: "",
     bathrooms: "",
@@ -258,6 +259,24 @@ export default function PublishListingPage() {
                       placeholder="Ex. +261 34 00 000 00"
                       value={form.contact}
                       onChange={update("contact")}
+                    />
+                  </div>
+                </Field>
+
+                <Field label="Adresse e-mail">
+                  <div className="relative">
+                    <Mail
+                      size={20}
+                      className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400"
+                    />
+                    <input
+                      required
+                      type="email"
+                      maxLength={25}
+                      className={`${inputClasses} pl-11`}
+                      placeholder="Ex. contact@anofamg.com"
+                      value={form.email}
+                      onChange={update("email")}
                     />
                   </div>
                 </Field>
