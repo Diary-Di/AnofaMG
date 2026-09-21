@@ -13,8 +13,11 @@ const SORT_OPTIONS = ["Ordre par défaut", "Prix croissant", "Prix décroissant"
 export default function SearchResultsPage() {
   const [searchParams] = useSearchParams();
 
-  const [locationQuery, setLocationQuery] = useState(
+  const [provinceQuery, setProvinceQuery] = useState(
     searchParams.get("lieu") || ""
+  );
+  const [neighborhoodQuery, setNeighborhoodQuery] = useState(
+    searchParams.get("quartier") || ""
   );
   const [propertyType, setPropertyType] = useState(PROPERTY_TYPES[0]);
   const [minBudget, setMinBudget] = useState(searchParams.get("min") || "");
@@ -40,7 +43,8 @@ export default function SearchResultsPage() {
 
   const filtered = useMemo(() => {
     const hasActiveFilters = Boolean(
-      locationQuery ||
+      provinceQuery ||
+      neighborhoodQuery ||
       propertyType !== PROPERTY_TYPES[0] ||
       minBudget ||
       maxBudget ||
@@ -49,8 +53,11 @@ export default function SearchResultsPage() {
 
     let results = hasActiveFilters
       ? allListings.filter((listing) => {
-        const matchesLocation = locationQuery
-          ? listing.location.toLowerCase().includes(locationQuery.toLowerCase())
+        const matchesProvince = provinceQuery
+          ? listing.city.toLowerCase().includes(provinceQuery.toLowerCase())
+          : true;
+        const matchesNeighborhood = neighborhoodQuery
+          ? listing.address.toLowerCase().includes(neighborhoodQuery.toLowerCase())
           : true;
         const matchesType =
           propertyType === "Tous les types" || listing.type === propertyType;
@@ -61,7 +68,8 @@ export default function SearchResultsPage() {
           ? listing.bedrooms >= minBedrooms
           : true;
         return (
-          matchesLocation &&
+          matchesProvince &&
+          matchesNeighborhood &&
           matchesType &&
           matchesMin &&
           matchesMax &&
@@ -81,7 +89,7 @@ export default function SearchResultsPage() {
     }
 
     return results;
-  }, [locationQuery, propertyType, minBudget, maxBudget, minBedrooms, sortBy]);
+  }, [allListings, provinceQuery, neighborhoodQuery, propertyType, minBudget, maxBudget, minBedrooms, sortBy]);
 
   return (
     <div className="flex min-h-screen flex-col bg-white">
@@ -95,13 +103,26 @@ export default function SearchResultsPage() {
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-neutral-700">
-                Localisation
+                Province / ville
               </label>
               <input
                 type="text"
-                value={locationQuery}
-                onChange={(e) => setLocationQuery(e.target.value)}
-                placeholder="Ville ou adresse"
+                value={provinceQuery}
+                onChange={(e) => setProvinceQuery(e.target.value)}
+                placeholder="Ex. Antananarivo"
+                className="w-full rounded-[10px] border border-neutral-300 px-4 py-3 text-base placeholder:text-neutral-400 focus:border-brand-blue focus:outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-neutral-700">
+                Quartier / adresse
+              </label>
+              <input
+                type="text"
+                value={neighborhoodQuery}
+                onChange={(e) => setNeighborhoodQuery(e.target.value)}
+                placeholder="Ex. Rue test, quartier"
                 className="w-full rounded-[10px] border border-neutral-300 px-4 py-3 text-base placeholder:text-neutral-400 focus:border-brand-blue focus:outline-none"
               />
             </div>
@@ -123,7 +144,7 @@ export default function SearchResultsPage() {
 
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-neutral-700">
-                Budget (€ / mois)
+                Budget (Ar / mois)
               </label>
               <div className="flex items-center gap-3">
                 <input
@@ -180,7 +201,9 @@ export default function SearchResultsPage() {
                 {loading
                   ? "Toutes les annonces"
                   : `${filtered.length} résultat${filtered.length !== 1 ? "s" : ""}`}
-                {!loading && locationQuery ? ` pour "${locationQuery}"` : ""}
+                {!loading && (provinceQuery || neighborhoodQuery)
+                  ? ` pour "${[provinceQuery, neighborhoodQuery].filter(Boolean).join(", ")}"`
+                  : ""}
               </h1>
               <Search size={24} className="text-neutral-400" />
             </div>
@@ -200,7 +223,19 @@ export default function SearchResultsPage() {
           </div>
 
           {loading ? (
-            <div className="py-24 text-center text-neutral-500">Chargement des annonces...</div>
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2" aria-label="Chargement des annonces">
+              {[1, 2, 3, 4].map((placeholder) => (
+                <div key={placeholder} className="animate-pulse overflow-hidden rounded-[14px] border border-neutral-100 bg-white">
+                  <div className="h-[190px] bg-neutral-200 sm:h-[210px]" />
+                  <div className="space-y-4 p-5">
+                    <div className="h-4 w-1/3 rounded bg-neutral-200" />
+                    <div className="h-6 w-3/4 rounded bg-neutral-200" />
+                    <div className="h-4 w-full rounded bg-neutral-100" />
+                    <div className="h-8 w-full rounded bg-neutral-100" />
+                  </div>
+                </div>
+              ))}
+            </div>
           ) : error ? (
             <div className="rounded-[20px] border border-red-200 bg-red-50 py-12 text-center text-red-700">
               Impossible de charger les annonces : {error}

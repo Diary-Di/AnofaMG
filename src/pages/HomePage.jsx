@@ -90,7 +90,7 @@ export default function HomePage() {
 
             <div className="flex flex-1 flex-col gap-1 text-left">
               <label className="px-2 text-center text-sm text-neutral-500 sm:text-left">
-                Budget (Min - Max)
+                Budget (Min - Max, Ar)
               </label>
               <div className="flex items-center gap-4 px-2">
                 <input

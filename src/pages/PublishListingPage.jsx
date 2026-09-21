@@ -256,7 +256,7 @@ export default function PublishListingPage() {
               </div>
 
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-                <Field label="Prix (€ / mois)">
+                <Field label="Prix (Ar / mois)">
                   <input
                     required
                     type="number"

@@ -37,7 +37,7 @@ export function normalizeAnnonce(annonce, index = 0) {
         id: annonce.numId,
         image: annonce.images?.[0] || fallbackImages[index % fallbackImages.length],
         type: annonce.typeBatiment || "Bien immobilier",
-        price: annonce.prix != null ? `${annonce.prix.toLocaleString("fr-FR")}€ / mois` : "Prix non renseigné",
+        price: annonce.prix != null ? `${annonce.prix.toLocaleString("fr-FR")} Ar / mois` : "Prix non renseigné",
         priceValue: annonce.prix || 0,
         title: annonce.titre || "Annonce sans titre",
         location: `${city}, ${address}`,
