@@ -130,7 +130,7 @@ export default function HomePage() {
             Vous avez un bien à louer ?
           </h2>
           <p className="text-base text-neutral-700">
-            Publiez votre annonce gratuitement sur anofamig et touchez des
+            Publiez votre annonce gratuitement sur anofamg et touchez des
             milliers de locataires potentiels dès aujourd'hui.
           </p>
         </div>

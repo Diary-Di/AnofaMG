@@ -35,7 +35,7 @@ export default function Footer() {
               <Logo className="h-[34px] w-auto" />
             </div>
             <p className="text-[15px] leading-relaxed text-neutral-400">
-              Simplifiez votre recherche immobilière avec anofamig. La
+              Simplifiez votre recherche immobilière avec anofamg. La
               plateforme de confiance pour louer et publier des annonces.
             </p>
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
 
             <div className="flex flex-col gap-4">
               <h4 className="text-lg font-bold">Contact</h4>
-              <a href="mailto:info@anofamig.com" className="text-[15px] text-neutral-400 hover:text-white">info@anofamig.com</a>
+              <a href="mailto:info@anofamg.com" className="text-[15px] text-neutral-400 hover:text-white">info@anofamg.com</a>
               <a href="tel:+33123456789" className="text-[15px] text-neutral-400 hover:text-white">+33 1 23 45 67 89</a>
               <div className="flex gap-4 pt-1">
                 <a href="#" aria-label="Facebook" className="text-neutral-400 hover:text-white">
@@ -77,7 +77,7 @@ export default function Footer() {
 
         <div className="flex flex-col items-start justify-between gap-4 border-t border-neutral-800 pt-8 sm:flex-row sm:items-center">
           <p className="text-sm text-neutral-500">
-            © {new Date().getFullYear()} anofamig. Tous droits réservés.
+            © {new Date().getFullYear()} anofamg. Tous droits réservés.
           </p>
           <div className="flex gap-6">
             <a href="#" className="text-sm text-neutral-500 hover:text-white">Confidentialité</a>

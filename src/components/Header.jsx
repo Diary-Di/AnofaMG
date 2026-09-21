@@ -14,7 +14,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-brand-mint/95 shadow-sm backdrop-blur">
       <div className="flex items-center justify-between px-6 py-2 sm:px-10 lg:px-[60px]">
-        <Link to="/" className="shrink-0" aria-label="anofamig — accueil">
+        <Link to="/" className="shrink-0" aria-label="anofamg — accueil">
           <Logo className="h-8 w-auto sm:h-9" />
         </Link>
 

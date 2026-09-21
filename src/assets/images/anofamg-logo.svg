@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 52" role="img" aria-labelledby="title desc">
+  <title id="title">anofamg</title>
+  <desc id="desc">Logo anofamg avec une maison stylisee</desc>
+  <path fill="#00A6FB" d="M7 25 27 7l20 18v17a4 4 0 0 1-4 4H11a4 4 0 0 1-4-4V25Z"/>
+  <path fill="#F1FAEE" d="M20 46V29h14v17H20Z"/>
+  <path fill="#0A0A0A" d="m27 2 23 21-4 4L27 10 8 27l-4-4L27 2Z"/>
+  <text x="61" y="37" fill="#0A0A0A" font-family="Arial, sans-serif" font-size="29" font-weight="800" letter-spacing="-.8">anofa</text>
+  <text x="150" y="37" fill="#00A6FB" font-family="Arial, sans-serif" font-size="29" font-weight="800" letter-spacing="-.8">mg</text>
+</svg>
